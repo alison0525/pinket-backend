@@ -15,7 +15,7 @@ plugins {
     id("com.diffplug.spotless") version "7.0.3" apply false
 
     // 잠재적 버그 감지 플러그인 (apply false = 버전만 등록, 실제 적용은 subprojects에서)
-    id("com.github.spotbugs") version "6.1.7" apply false
+    id("com.github.spotbugs") version "6.5.5" apply false
 }
 
 // =========================================================================
@@ -86,9 +86,9 @@ subprojects {
     // [규칙 9] SpotBugs 세부 규칙 설정
     configure<com.github.spotbugs.snom.SpotBugsExtension> {
         // MEDIUM 이상 심각도만 잡아냄 (LOW는 노이즈가 너무 많음)
-        reportLevel = com.github.spotbugs.snom.Confidence.MEDIUM
+        reportLevel.set(com.github.spotbugs.snom.Confidence.MEDIUM)
         // 기본 분석 깊이 (MAX로 하면 빌드가 느려짐)
-        effort = com.github.spotbugs.snom.Effort.DEFAULT
+        effort.set(com.github.spotbugs.snom.Effort.DEFAULT)
     }
 
     // [규칙 10] 모든 자식 모듈에 기본 탑재할 공통 테스트 도구
