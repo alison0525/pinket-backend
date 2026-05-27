@@ -1,3 +1,27 @@
 spring:
   application:
     name: pinket-api
+
+  config:
+    import: optional:file:.env[.properties]
+
+  datasource:
+    # Docker Compose에서 띄운 PostgreSQL 연결
+    # .env에서 환경변수 읽어옴
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    enabled: true
+    # 마이그레이션 SQL 파일 위치 (V1__, V2__ 순서로 자동 실행)
+    locations: classpath:db/migration
+
+  jpa:
+    hibernate:
+      # validate: JPA가 엔티티와 DB 테이블 비교해서 검증만 함
+      # 테이블 생성/수정은 Flyway가 담당, JPA는 손대지 않음
+      ddl-auto: validate
+    # 실행되는 SQL 콘솔에 출력 (개발 환경에서 디버깅용)
+    show-sql: true
