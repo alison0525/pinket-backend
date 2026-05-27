@@ -73,7 +73,7 @@ subprojects {
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         java {
             // Google Java Style Guide 기준으로 코드 자동 정렬
-            googleJavaFormat()
+            googleJavaFormat("1.35.0")
             // 사용하지 않는 import 자동 제거
             removeUnusedImports()
             // 줄 끝 불필요한 공백 제거
