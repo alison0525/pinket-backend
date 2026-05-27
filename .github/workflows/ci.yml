@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 레포 코드를 CI 서버로 가져옴
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      # Java 25 설치
+      - name: Java 25 세팅
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+
+      # 리눅스 환경에서 gradlew 실행 권한 부여 (없으면 Permission Denied 에러)
+      - name: Gradle 실행 권한 부여
+        run: chmod +x ./gradlew
+
+      # build.gradle.kts가 바뀌지 않으면 이전에 받은 라이브러리 재사용 → CI 실행 시간 단축
+      - name: Gradle 캐싱
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # 1단계: 가장 가벼운 검사 - 코드 포맷 맞는지 확인 → 실패 시 즉시 컷
+      - name: 코드 포맷 체크 (Spotless)
+        run: ./gradlew spotlessCheck
+
+      # 2단계: 정적 분석 - NullPointerException 위험 등 버그 패턴 감지 → 실패 시 즉시 컷
+      - name: 버그 감지 (SpotBugs)
+        run: ./gradlew spotbugsMain
+
+      # 3단계: 컴파일 + 테스트 + jar 생성 (SpotBugs는 이미 위에서 실행했으므로 제외)
+      - name: 빌드 및 테스트
+        run: ./gradlew build -x spotbugsMain -x spotbugsTest
