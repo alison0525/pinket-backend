@@ -38,3 +38,5 @@ out/
 
 ### ETC ###
 .env
+.DS_Store
+**/application-prod.yaml
