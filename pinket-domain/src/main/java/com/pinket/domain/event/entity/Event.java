@@ -1,5 +1,6 @@
 package com.pinket.domain.event.entity;
 
+import com.pinket.domain.common.entity.BaseEntity;
 import com.pinket.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "event")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Event {
+public class Event extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "host_id", nullable = false)
