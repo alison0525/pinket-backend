@@ -3,7 +3,7 @@ spring:
     name: pinket-api
 
   config:
-    import: optional:file:.env[.properties]
+    import: optional:file:../.env[.properties]
 
   datasource:
     # Docker Compose에서 띄운 PostgreSQL 연결
@@ -25,3 +25,5 @@ spring:
       ddl-auto: validate
     # 실행되는 SQL 콘솔에 출력 (개발 환경에서 디버깅용)
     show-sql: true
+    # OSIV 비활성화 - 커넥션 풀 효율 향상
+    open-in-view: false
