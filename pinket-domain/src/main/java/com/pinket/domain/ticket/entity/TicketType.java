@@ -38,6 +38,12 @@ public class TicketType extends BaseEntity {
 
   @Builder
   public TicketType(Event event, String name, int price, int totalStock) {
+    if (price < 0) {
+      throw new IllegalArgumentException("티켓 가격은 음수가 될 수 없습니다.");
+    }
+    if (totalStock <= 0) {
+      throw new IllegalArgumentException("총 재고 수량은 1개 이상이어야 합니다.");
+    }
     this.event = event;
     this.name = name;
     this.price = price;

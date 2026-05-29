@@ -29,6 +29,9 @@ public class EventSchedule extends BaseEntity {
 
   @Builder
   public EventSchedule(Event event, LocalDateTime startAt, LocalDateTime endAt) {
+    if (startAt != null && endAt != null && endAt.isBefore(startAt)) {
+      throw new IllegalArgumentException("종료 시간은 시작 시간보다 빠를 수 없습니다.");
+    }
     this.event = event;
     this.startAt = startAt;
     this.endAt = endAt;

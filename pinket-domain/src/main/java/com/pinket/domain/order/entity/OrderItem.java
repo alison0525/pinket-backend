@@ -46,6 +46,12 @@ public class OrderItem extends BaseEntity {
   @Builder
   public OrderItem(
       Orders order, TicketType ticketType, EventSchedule schedule, int quantity, int unitPrice) {
+    if (quantity <= 0) {
+      throw new IllegalArgumentException("주문 수량은 1개 이상이어야 합니다.");
+    }
+    if (unitPrice < 0) {
+      throw new IllegalArgumentException("주문 단가는 0원 이상이어야 합니다.");
+    }
     this.order = order;
     this.ticketType = ticketType;
     this.schedule = schedule;

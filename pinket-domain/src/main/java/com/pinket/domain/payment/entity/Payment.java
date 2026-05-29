@@ -43,9 +43,12 @@ public class Payment extends BaseEntity {
 
   @Builder
   public Payment(Orders order, int amount) {
+    if (amount <= 0) {
+      throw new IllegalArgumentException("결제 금액은 0원보다 커야 합니다.");
+    }
     this.order = order;
     this.amount = amount;
-    this.status = PaymentStatus.READY; // 결제 생성 시 항상 READY
+    this.status = PaymentStatus.READY; // 결제 생성시 항상 대기 상태
   }
 
   // 결제 완료

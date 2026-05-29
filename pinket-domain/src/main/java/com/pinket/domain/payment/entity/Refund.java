@@ -33,6 +33,9 @@ public class Refund extends BaseEntity {
 
   @Builder
   public Refund(Payment payment, String reason, int totalRefundAmount) {
+    if (totalRefundAmount <= 0) {
+      throw new IllegalArgumentException("총 환불 금액은 0원보다 커야 합니다.");
+    }
     this.payment = payment;
     this.reason = reason;
     this.totalRefundAmount = totalRefundAmount;

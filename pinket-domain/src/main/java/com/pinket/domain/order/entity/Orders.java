@@ -35,8 +35,11 @@ public class Orders extends BaseEntity {
 
   @Builder
   public Orders(Member member, int totalAmount) {
+    if (totalAmount < 0) {
+      throw new IllegalArgumentException("총 결제 금액은 음수가 될 수 없습니다.");
+    }
     this.member = member;
-    this.status = OrderStatus.PENDING; // 주문 생성 시 항상 PENDING
+    this.status = OrderStatus.PENDING;
     this.totalAmount = totalAmount;
   }
 

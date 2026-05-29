@@ -38,16 +38,20 @@ public class ScheduleTicketStock extends BaseEntity {
     this.remainStock = remainStock;
   }
 
-  // 재고 차감 (티켓 구매 시)
   public void decreaseStock(int quantity) {
+    if (quantity <= 0) {
+      throw new IllegalArgumentException("차감할 수량은 1개 이상이어야 합니다.");
+    }
     if (this.remainStock < quantity) {
       throw new IllegalArgumentException("남은 티켓 재고가 부족합니다. (현재 재고: " + this.remainStock + ")");
     }
     this.remainStock -= quantity;
   }
 
-  // 재고 복구 (주문 취소 시)
   public void increaseStock(int quantity) {
+    if (quantity <= 0) {
+      throw new IllegalArgumentException("복구할 수량은 1개 이상이어야 합니다.");
+    }
     this.remainStock += quantity;
   }
 }

@@ -39,6 +39,12 @@ public class RefundItem extends BaseEntity {
 
   @Builder
   public RefundItem(Refund refund, OrderItem orderItem, int quantity, int refundAmount) {
+    if (quantity <= 0) {
+      throw new IllegalArgumentException("환불 수량은 1개 이상이어야 합니다.");
+    }
+    if (refundAmount <= 0) {
+      throw new IllegalArgumentException("환불 금액은 0원보다 커야 합니다.");
+    }
     this.refund = refund;
     this.orderItem = orderItem;
     this.quantity = quantity;

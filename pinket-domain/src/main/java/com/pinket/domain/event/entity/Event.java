@@ -93,6 +93,12 @@ public class Event extends BaseEntity {
   // 위도/경도로 Point 객체 생성하는 팩토리 메서드
   // JTS Point는 x=경도(Lng), y=위도(Lat) 순서여서 익숙한 위도 경도 순으로 변경
   public static Point createPoint(double latitude, double longitude) {
+    if (latitude < -90.0 || latitude > 90.0) {
+      throw new IllegalArgumentException("위도는 -90도에서 90도 사이여야 합니다.");
+    }
+    if (longitude < -180.0 || longitude > 180.0) {
+      throw new IllegalArgumentException("경도는 -180도에서 180도 사이여야 합니다.");
+    }
     // 공간 객체를 만드는 팩토리 메서드 사용
     // new PrecisionModel: 좌표의 정밀도 설정, 기본값 세팅 시 소수점 아래까지 정밀하게 표현
     // 4326: 공간 참조 시스템 식별자
