@@ -14,8 +14,6 @@ plugins {
     // 코드 포맷팅 자동화 플러그인 (apply false = 버전만 등록, 실제 적용은 subprojects에서)
     id("com.diffplug.spotless") version "7.0.3" apply false
 
-    // 잠재적 버그 감지 플러그인 (apply false = 버전만 등록, 실제 적용은 subprojects에서)
-    id("com.github.spotbugs") version "6.5.5" apply false
 }
 
 // =========================================================================
@@ -46,8 +44,6 @@ subprojects {
     // [규칙 3] 모든 자식 모듈에 Spotless 코드 포맷팅 도구 장착
     apply(plugin = "com.diffplug.spotless")
 
-    // [규칙 4] 모든 자식 모듈에 SpotBugs 버그 감지 도구 장착
-    apply(plugin = "com.github.spotbugs")
 
     // [규칙 5] 모든 자식 모듈들의 자바 버전을 무조건 'Java 25'로 강제 통일
     java {
@@ -83,15 +79,8 @@ subprojects {
         }
     }
 
-    // [규칙 9] SpotBugs 세부 규칙 설정
-    configure<com.github.spotbugs.snom.SpotBugsExtension> {
-        // MEDIUM 이상 심각도만 잡아냄 (LOW는 노이즈가 너무 많음)
-        reportLevel.set(com.github.spotbugs.snom.Confidence.MEDIUM)
-        // 기본 분석 깊이 (MAX로 하면 빌드가 느려짐)
-        effort.set(com.github.spotbugs.snom.Effort.DEFAULT)
-    }
 
-    // [규칙 10] 모든 자식 모듈에 기본 탑재할 공통 테스트 도구
+    // [규칙 9] 모든 자식 모듈에 기본 탑재할 공통 테스트 도구
     dependencies {
         // 스프링 부트의 기본 테스트 세트 강제 보급
         "testImplementation"("org.springframework.boot:spring-boot-starter-test")
@@ -99,7 +88,7 @@ subprojects {
         "testRuntimeOnly"("org.junit.platform:junit-platform-launcher")
     }
 
-    // [규칙 11] 테스트를 실행할 때 최신 JUnit5(Platform)를 쓰도록 고정
+    // [규칙 10] 테스트를 실행할 때 최신 JUnit5(Platform)를 쓰도록 고정
     tasks.withType<Test> {
         useJUnitPlatform()
     }

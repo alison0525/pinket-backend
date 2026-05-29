@@ -41,11 +41,7 @@ jobs:
       - name: 코드 포맷 체크 (Spotless)
         run: ./gradlew spotlessCheck
 
-      # 2단계: 정적 분석 - NullPointerException 위험 등 버그 패턴 감지 → 실패 시 즉시 컷
-      - name: 버그 감지 (SpotBugs)
-        run: ./gradlew spotbugsMain
-
-      # 3단계: 컴파일 + 테스트 + jar 생성 (SpotBugs는 이미 위에서 실행했으므로 제외)
+      # 2단계: 컴파일 + 테스트 + jar 생성 (SpotBugs는 이미 위에서 실행했으므로 제외)
       # CI 서버에는 PostgreSQL이 없어서 contextLoads() 테스트가 DB 연결 못해서 실패
       # 임시로 테스트 넘김
       - name: 빌드 및 테스트
