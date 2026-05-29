@@ -42,7 +42,8 @@ CREATE TABLE event_image (
                              event_id     BIGINT       NOT NULL REFERENCES event (id),
                              image_url    VARCHAR(500) NOT NULL,
                              is_thumbnail BOOLEAN      NOT NULL DEFAULT FALSE,
-                             created_at   TIMESTAMP    NOT NULL DEFAULT NOW()
+                             created_at   TIMESTAMP    NOT NULL DEFAULT NOW(),
+                             updated_at   TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
 -- =============================================
@@ -53,17 +54,19 @@ CREATE TABLE event_schedule (
                                 event_id   BIGINT    NOT NULL REFERENCES event (id),
                                 start_at   TIMESTAMP NOT NULL,
                                 end_at     TIMESTAMP NOT NULL,
-                                created_at TIMESTAMP NOT NULL DEFAULT NOW()
+                                created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+                                updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 -- =============================================
 -- event_wishlist (찜)
 -- =============================================
 CREATE TABLE event_wishlist (
-                                id        BIGSERIAL PRIMARY KEY,
-                                member_id BIGINT    NOT NULL REFERENCES member (id),
-                                event_id  BIGINT    NOT NULL REFERENCES event (id),
+                                id         BIGSERIAL PRIMARY KEY,
+                                member_id  BIGINT    NOT NULL REFERENCES member (id),
+                                event_id   BIGINT    NOT NULL REFERENCES event (id),
                                 created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+                                updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
                                 UNIQUE (member_id, event_id)
 );
 
@@ -89,6 +92,8 @@ CREATE TABLE schedule_ticket_stock (
                                        schedule_id    BIGINT NOT NULL REFERENCES event_schedule (id),
                                        ticket_type_id BIGINT NOT NULL REFERENCES ticket_type (id),
                                        remain_stock   INT    NOT NULL,
+                                       created_at     TIMESTAMP NOT NULL DEFAULT NOW(),
+                                       updated_at     TIMESTAMP NOT NULL DEFAULT NOW(),
                                        UNIQUE (schedule_id, ticket_type_id)
 );
 
@@ -112,7 +117,8 @@ CREATE TABLE order_status_history (
                                       id         BIGSERIAL PRIMARY KEY,
                                       order_id   BIGINT      NOT NULL REFERENCES orders (id),
                                       status     VARCHAR(20) NOT NULL,
-                                      created_at TIMESTAMP   NOT NULL DEFAULT NOW()
+                                      created_at TIMESTAMP   NOT NULL DEFAULT NOW(),
+                                      updated_at TIMESTAMP   NOT NULL DEFAULT NOW()
 );
 
 -- =============================================
@@ -126,7 +132,8 @@ CREATE TABLE order_item (
                             quantity       INT       NOT NULL,
                             unit_price     INT       NOT NULL,
                             deleted_at     TIMESTAMP,
-                            created_at     TIMESTAMP NOT NULL DEFAULT NOW()
+                            created_at     TIMESTAMP NOT NULL DEFAULT NOW(),
+                            updated_at     TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 -- =============================================
@@ -165,7 +172,8 @@ CREATE TABLE refund_item (
                              order_item_id BIGINT    NOT NULL REFERENCES order_item (id),
                              quantity      INT       NOT NULL,
                              refund_amount INT       NOT NULL,
-                             created_at    TIMESTAMP NOT NULL DEFAULT NOW()
+                             created_at    TIMESTAMP NOT NULL DEFAULT NOW(),
+                             updated_at    TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 -- =============================================
@@ -178,5 +186,6 @@ CREATE TABLE notification (
                               title      VARCHAR(255) NOT NULL,
                               content    TEXT,
                               is_read    BOOLEAN      NOT NULL DEFAULT FALSE,
-                              created_at TIMESTAMP    NOT NULL DEFAULT NOW()
+                              created_at TIMESTAMP    NOT NULL DEFAULT NOW(),
+                              updated_at TIMESTAMP    NOT NULL DEFAULT NOW()
 );
