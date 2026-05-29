@@ -158,6 +158,7 @@ CREATE TABLE refund (
                         id         BIGSERIAL PRIMARY KEY,
                         payment_id BIGINT      NOT NULL REFERENCES payment (id),
                         reason     TEXT,
+                        total_refund_amount INT         NOT NULL,
                         status     VARCHAR(20) NOT NULL DEFAULT 'REQUESTED',
                         created_at TIMESTAMP   NOT NULL DEFAULT NOW(),
                         updated_at TIMESTAMP   NOT NULL DEFAULT NOW()
