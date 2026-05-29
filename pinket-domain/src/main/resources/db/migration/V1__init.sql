@@ -22,7 +22,7 @@ CREATE TABLE member (
 -- =============================================
 CREATE TABLE event (
                        id          BIGSERIAL PRIMARY KEY,
-                       host_id     BIGINT       NOT NULL REFERENCES member (id),
+                       host_id     BIGINT       REFERENCES member (id),
                        title       VARCHAR(255) NOT NULL,
                        description TEXT,
                        category    VARCHAR(50)  NOT NULL,

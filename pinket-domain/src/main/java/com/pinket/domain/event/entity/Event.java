@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class Event extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "host_id", nullable = false)
+    @JoinColumn(name = "host_id")
     private Member host;
 
     @Column(nullable = false)
