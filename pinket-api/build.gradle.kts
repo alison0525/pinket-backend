@@ -7,6 +7,13 @@ dependencies {
     implementation(project(":pinket-domain"))
     implementation(project(":pinket-infra"))
 
-    // 이 모듈은 유저들과 HTTP로 대화해야 하므로 웹 도구를 얹어줍니다.
+    // 유저들과 HTTP로 대화하는 웹 도구
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // JPA Auditing (@EnableJpaAuditing) 사용을 위해 직접 추가
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 }
