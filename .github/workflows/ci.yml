@@ -45,4 +45,4 @@ jobs:
       # CI 서버에는 PostgreSQL이 없어서 contextLoads() 테스트가 DB 연결 못해서 실패
       # 임시로 테스트 넘김
       - name: 빌드 및 테스트
-        run: ./gradlew build -x spotbugsMain -x spotbugsTest -x test
+        run: ./gradlew build -x test
