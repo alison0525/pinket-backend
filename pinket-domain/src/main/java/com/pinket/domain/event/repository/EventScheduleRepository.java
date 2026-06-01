@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface EventScheduleRepository extends JpaRepository<EventSchedule, Long> {
 
   // 이벤트의 전체 일정 조회 (관리자, 호스트용)
-  List<EventSchedule> findByEventId(Long eventId);
+  List<EventSchedule> findByEventIdOrderByStartAtAsc(Long eventId);
 
   // 현재 시간 이후 일정만 조회 (일반 유저용)
-  List<EventSchedule> findByEventIdAndStartAtAfter(Long eventId, LocalDateTime now);
+  List<EventSchedule> findByEventIdAndStartAtAfterOrderByStartAtAsc(Long eventId, LocalDateTime now);
 }
