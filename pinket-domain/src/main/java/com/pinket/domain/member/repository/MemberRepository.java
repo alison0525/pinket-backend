@@ -11,6 +11,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
   // 이메일로 활성 회원 조회 (소프트딜리트 고려)
   Optional<Member> findByEmailAndDeletedAtIsNull(String email);
 
-  // OAuth 제공자 + OAuth ID로 회원 조회 (소셜 로그인)
-  Optional<Member> findByOauthProviderAndOauthId(String oauthProvider, String oauthId);
+  // OAuth 제공자 + OAuth ID로 회원 조회 (소셜 로그인, 소프트딜리트 고려)
+  Optional<Member> findByOauthProviderAndOauthIdAndDeletedAtIsNull(String oauthProvider, String oauthId);
 }
