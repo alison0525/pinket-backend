@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface ScheduleTicketStockRepository extends JpaRepository<ScheduleTicketStock, Long> {
 
   // 일정 + 티켓 종류로 재고 조회 (삭제된 티켓 종류 제외)
-  Optional<ScheduleTicketStock> findByScheduleIdAndTicketTypeIdAndTicketTypeDeletedAtIsNull(Long scheduleId, Long ticketTypeId);
+  Optional<ScheduleTicketStock> findByScheduleIdAndTicketTypeIdAndTicketTypeDeletedAtIsNull(
+      Long scheduleId, Long ticketTypeId);
 }

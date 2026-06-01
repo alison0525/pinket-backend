@@ -13,5 +13,6 @@ public interface EventScheduleRepository extends JpaRepository<EventSchedule, Lo
   List<EventSchedule> findByEventIdOrderByStartAtAsc(Long eventId);
 
   // 현재 시간 이후 일정만 조회 (일반 유저용)
-  List<EventSchedule> findByEventIdAndStartAtAfterOrderByStartAtAsc(Long eventId, LocalDateTime now);
+  List<EventSchedule> findByEventIdAndStartAtAfterOrderByStartAtAsc(
+      Long eventId, LocalDateTime now);
 }
